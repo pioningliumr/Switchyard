@@ -170,7 +170,7 @@ bool SyAdvPacket::readPacket(uint8_t *data,uint32_t size)
 	delete bytearray;
 	i+=(1+len);
 	fprintf(stderr,"Packet: unknown LWCP data type %u\n",type);
-	fprintf(stderr,"packet dump: %s\n",(const char *)dump().toAscii());
+	fprintf(stderr,"packet dump: %s\n",(const char *)dump().toUtf8());
 	istate=0;
 	break;
       }
@@ -214,7 +214,7 @@ int SyAdvPacket::writePacket(uint8_t *data,uint32_t maxsize)
   unsigned ptr=16;
   for(unsigned i=0;i<lw_tags.size();i++) {
     ptr+=snprintf((char *)data+ptr,maxsize-ptr,"%s%c",
-		  (const char *)lw_tags[i]->tagName().toAscii(),
+		  (const char *)lw_tags[i]->tagName().toUtf8(),
 		  lw_tags[i]->tagType());
     if(ptr>=maxsize) {
       return -1;
@@ -360,7 +360,7 @@ QString SyAdvPacket::dump() const
     case SyTag::TagString:
       str+=QString().sprintf("\"%s\" {",
 			     (const char *)lw_tags[i]->tagValue().toString().
-			     toAscii());
+			     toUtf8());
       for(int j=0;j<lw_tags[i]->tagValue().toByteArray().size();j++) {
 	str+=QString().sprintf("%02X ",
 			       0xff&lw_tags[i]->tagValue().toByteArray()[j]);

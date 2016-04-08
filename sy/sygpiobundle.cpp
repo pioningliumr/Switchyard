@@ -25,7 +25,7 @@ QString SyGpioBundle::code() const
 
 void SyGpioBundle::setCode(const QString &str)
 {
-  strncpy(gpio_code,str.toAscii(),SWITCHYARD_GPIO_BUNDLE_SIZE);
+  strncpy(gpio_code,str.toUtf8(),SWITCHYARD_GPIO_BUNDLE_SIZE);
 }
 
 

@@ -78,12 +78,13 @@ else
 fi
 
 #
-# Check for Qt4 (Mandatory)
+# Check for Qt5 (Mandatory)
 #
-PKG_CHECK_MODULES(QT4,QtCore QtNetwork,[],[AC_MSG_ERROR([*** Qt4 not found ***])])
-PKG_CHECK_MODULES(QT4GUI,QtGui,[],[AC_MSG_ERROR([*** Qt4 GUI not found ***])])
-AC_CHECK_PROG(MOC_NAME,moc-qt4,[moc-qt4],[moc])
-AC_SUBST(MOC,$MOC_NAME)
+PKG_CHECK_MODULES(QT5,Qt5Core Qt5Network,[],[AC_MSG_ERROR([*** Qt5 not found ***])])
+PKG_CHECK_MODULES(QT5GUI,Qt5Widgets,[],[AC_MSG_ERROR([*** Qt5 Widgets not found ***])])
+AC_CHECK_PROG(MOC_NAME,moc-qt5,[moc-qt5],[moc])
+AC_SUBST(MOC,moc-qt5)
+#AC_SUBST(MOC,$MOC_NAME)
 
 #
 # Check for libsndfile (Needed for sycapture)
@@ -106,9 +107,9 @@ fi
 #
 if test $ar_gcc_distro = "apple" ; then
   AC_SUBST(SWITCHYARDLIBS,"-lSwitchyard")
-  AC_SUBST(SWITCHYARDFLAGS,"-framework QtCore -framework QtNetwork")
+  AC_SUBST(SWITCHYARDFLAGS,"-framework Qt5Core -framework Qt5Network")
 else
-  AC_SUBST(SWITCHYARDLIBS,"-lSwitchyard -lQtCore -lQtNetwork")
+  AC_SUBST(SWITCHYARDLIBS,"-lSwitchyard -lQt5Core -lQt5Network")
   AC_SUBST(SWITCHYARDFLAGS,"-pthread")
 fi
 

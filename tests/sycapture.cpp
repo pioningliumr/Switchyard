@@ -58,9 +58,7 @@ MainObject::MainObject(QObject *parent)
   //
   // Process Command Line
   //
-  SyCmdSwitch *cmd=
-    new SyCmdSwitch(qApp->argc(),qApp->argv(),"sycapture",VERSION,
-		    SYCAPTURE_USAGE);
+  SyCmdSwitch *cmd=new SyCmdSwitch("sycapture",VERSION,SYCAPTURE_USAGE);
   for(unsigned i=0;i<cmd->keys();i++) {
     if(cmd->key(i)=="--output") {
       filename=cmd->value(i);
@@ -108,7 +106,7 @@ MainObject::MainObject(QObject *parent)
     info.format=SF_FORMAT_WAV|SF_FORMAT_PCM_32;
     break;
   }
-  if((cap_sf=sf_open(filename.toAscii(),SFM_WRITE,&info))==NULL) {
+  if((cap_sf=sf_open(filename.toUtf8(),SFM_WRITE,&info))==NULL) {
     fprintf(stderr,"sycapture: %s\n",sf_strerror(cap_sf));
     exit(256);
   }

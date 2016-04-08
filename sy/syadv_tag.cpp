@@ -50,7 +50,7 @@ void SyTag::setTagValue(TagType type,const QVariant &value,int taglen)
 {
   lw_tag_type=type;
   if(taglen>0) {
-    QByteArray data((const char *)value.toString().left(taglen).toAscii());
+    QByteArray data((const char *)value.toString().left(taglen).toUtf8());
     while(data.size()<taglen) {
       data.append((char)0);
     }
@@ -72,11 +72,11 @@ void SyTag::setTagValue(TagType type,const QHostAddress &addr)
 
 QString SyTag::normalizeName(const QString &str)
 {
-  if((0xff&str.toAscii()[0])>176) {
+  if((0xff&str.toUtf8()[0])>176) {
     QString ret;
     ret="{";
     for(int i=0;i<str.length();i++) {
-      ret+=QString().sprintf("%02X ",0xff&str.toAscii()[i]);
+      ret+=QString().sprintf("%02X ",0xff&str.toUtf8()[i]);
     }
     ret=ret.left(ret.length()-1)+"}";
     return ret;

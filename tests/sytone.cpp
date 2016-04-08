@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include <QtGui/QApplication>  // So we get qApp with Qt<=4.2
+#include <QApplication>  // So we get qApp with Qt<=4.2
 #include <QCoreApplication>
 #include <QTimer>
 
@@ -43,8 +43,7 @@ MainObject::MainObject(QObject *parent)
   //
   // Process Command Line
   //
-  SyCmdSwitch *cmd=
-    new SyCmdSwitch(qApp->argc(),qApp->argv(),"sytone",VERSION,SYTONE_USAGE);
+  SyCmdSwitch *cmd=new SyCmdSwitch("sytone",VERSION,SYTONE_USAGE);
   for(unsigned i=0;i<cmd->keys();i++) {
     if(!cmd->processed(i)) {
       fprintf(stderr,"syplay: unrecognized option\n");
@@ -131,7 +130,7 @@ MainObject::MainObject(QObject *parent)
 
 void MainObject::sourceAddressChangedData(const QHostAddress &addr)
 {
-  printf("Clock source is now: %s\n",(const char *)addr.toString().toAscii());
+  printf("Clock source is now: %s\n",(const char *)addr.toString().toUtf8());
 }
 
 

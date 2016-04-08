@@ -11,7 +11,7 @@
 void SyOpenLog(const QString &ident,int option,int facility)
 {
 #ifndef WIN32
-  openlog(ident.toAscii(),option,facility);
+  openlog(ident.toUtf8(),option,facility);
 #endif  // WIN32
 }
 
@@ -19,8 +19,8 @@ void SyOpenLog(const QString &ident,int option,int facility)
 void SySyslog(int priority,const QString &msg)
 {
 #ifdef WIN32
-  fprintf(stderr,"%s\n",(const char *)msg.toAscii());
+  fprintf(stderr,"%s\n",(const char *)msg.toUtf8());
 #else
-  syslog(priority,"%s",(const char *)msg.toAscii());
+  syslog(priority,"%s",(const char *)msg.toUtf8());
 #endif  // WIN32
 }

@@ -9,11 +9,22 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include <QCoreApplication>
+
 #include "sycmdswitch.h"
 
 SyCmdSwitch::SyCmdSwitch(int argc,char *argv[],const char *modname,
 			 const char *modver,const char *usage)
 {
+  QStringList args;
+
+  for(int i=0;i<argc;i++) {
+    args.push_back(argv[i]);
+  }
+  Initialize(args,modname,modver,usage);
+
+
+  /*
   unsigned l=0;
   bool handled=false;
 
@@ -45,6 +56,14 @@ SyCmdSwitch::SyCmdSwitch(int argc,char *argv[],const char *modname,
       switch_processed.push_back(false);
     }
   }
+  */
+}
+
+
+SyCmdSwitch::SyCmdSwitch(const char *modname,const char *modver,
+			 const char *usage)
+{
+  Initialize(qApp->arguments(),modname,modver,usage);
 }
 
 
@@ -86,4 +105,41 @@ bool SyCmdSwitch::allProcessed() const
     }
   }
   return true;
+}
+
+
+void SyCmdSwitch::Initialize(const QStringList &args,const char *modname,
+			     const char *modver,const char *usage)
+{
+  unsigned l=0;
+  bool handled=false;
+
+  for(int i=1;i<args.size();i++) {
+#ifndef WIN32
+    if(args[i]=="--version") {
+      printf("%s v%s\n",modname,modver);
+      exit(0);
+    }
+#endif  // WIN32
+    if(args[i]=="--help") {
+      printf("\n%s %s\n",modname,usage);
+      exit(0);
+    }
+    l=args[i].length();
+    handled=false;
+    for(unsigned j=0;j<l;j++) {
+      if(args[i][j]=='=') {
+	switch_keys.push_back(QString(args[i]).left(j));
+	switch_values.push_back(QString(args[i]).right(l-(j+1)));
+	switch_processed.push_back(false);
+	j=l;
+	handled=true;
+      }
+    }
+    if(!handled) {
+      switch_keys.push_back(QString(args[i]));
+      switch_values.push_back(QString(""));
+      switch_processed.push_back(false);
+    }
+  }
 }

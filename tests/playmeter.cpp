@@ -9,6 +9,8 @@
 
 #include <stdio.h>
 
+#include <QPainter>
+
 #include "playmeter.h"
 
 SegMeter::SegMeter(SegMeter::Orientation o,QWidget *parent)

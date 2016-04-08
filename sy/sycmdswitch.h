@@ -12,12 +12,14 @@
 #include <vector>
 
 #include <QString>
+#include <QStringList>
 
 class SyCmdSwitch
 {
  public:
   SyCmdSwitch(int argc,char *argv[],const char *modname,const char *modver,
 	      const char *usage);
+  SyCmdSwitch(const char *modname,const char *modver,const char *usage);
   unsigned keys() const;
   QString key(unsigned n) const;
   QString value(unsigned n) const;
@@ -26,6 +28,8 @@ class SyCmdSwitch
   bool allProcessed() const;
 
  private:
+  void Initialize(const QStringList &args,const char *modname,
+		  const char *modver,const char *usage);
   std::vector<QString> switch_keys;
   std::vector<QString> switch_values;
   std::vector<bool> switch_processed;

@@ -157,7 +157,7 @@ void SyMcastSocket::subscribe(const QHostAddress &addr)
 		IP_ADD_MEMBERSHIP,(char *)&imr,sizeof(imr))<0) {
     SySyslog(LOG_ERR,QString().
 	     sprintf("unable to subscribe to group %s [%s]",
-		     (const char *)addr.toString().toAscii(),strerror(errno)));
+		     (const char *)addr.toString().toUtf8(),strerror(errno)));
     exit(256);
   }
 #else
@@ -171,7 +171,7 @@ void SyMcastSocket::subscribe(const QHostAddress &addr)
     IP_ADD_MEMBERSHIP,&mreq,sizeof(mreq))<0) {
     SySyslog(LOG_ERR,QString().
       sprintf("unable to subscribe to group %s [%s]",
-        (const char *)addr.toString().toAscii(),strerror(errno)));
+        (const char *)addr.toString().toUtf8(),strerror(errno)));
     exit(256);
   }
 #endif // WIN32
@@ -201,7 +201,7 @@ void SyMcastSocket::unsubscribe(const QHostAddress &addr)
 		IP_DROP_MEMBERSHIP,(char *)&imr,sizeof(imr))<0) {
     SySyslog(LOG_ERR,QString().
 	     sprintf("unable to subscribe to group %s [%s]",
-		     (const char *)addr.toString().toAscii(),strerror(errno)));
+		     (const char *)addr.toString().toUtf8(),strerror(errno)));
     exit(256);
   }
 #else
@@ -215,7 +215,7 @@ void SyMcastSocket::unsubscribe(const QHostAddress &addr)
 		IP_DROP_MEMBERSHIP,&mreq,sizeof(mreq))<0) {
       SySyslog(LOG_ERR,QString().
 	       sprintf("unable to unsubscribe from group %s [%s]",
-		      (const char *)addr.toString().toAscii(),strerror(errno)));
+		      (const char *)addr.toString().toUtf8(),strerror(errno)));
     exit(256);
   }
 #endif  // WIN32

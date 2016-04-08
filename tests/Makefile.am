@@ -8,8 +8,8 @@
 ##
 ## Use automake to process this into a Makefile.in
 
-AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -pthread -I$(top_srcdir) @QT4_CFLAGS@ @QT4GUI_CFLAGS@
-LIBS = -L$(top_srcdir)/sy @QT4_LIBS@
+AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -pthread -I$(top_srcdir) -fPIC @QT5_CFLAGS@ @QT5GUI_CFLAGS@
+LIBS = -L$(top_srcdir)/sy @QT5_LIBS@
 MOC = @MOC@
 
 #install-exec-local:	
@@ -54,7 +54,7 @@ dist_symetertest_SOURCES = playmeter.cpp playmeter.h\
 nodist_symetertest_SOURCES = moc_playmeter.cpp\
                              moc_statuslight.cpp\
                              moc_symetertest.cpp
-symetertest_LDADD = @SWITCHYARDLIBS@ @QT4GUI_LIBS@
+symetertest_LDADD = @SWITCHYARDLIBS@ @QT5GUI_LIBS@
 symetertest_LDFLAGS = @SWITCHYARDFLAGS@
 
 dist_synodetest_SOURCES = synodetest.cpp synodetest.h

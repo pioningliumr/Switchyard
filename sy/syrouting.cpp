@@ -478,32 +478,32 @@ void SyRouting::save() const
   FILE *f=NULL;
   QString tempfile=QString(SWITCHYARD_ROUTING_FILE)+"-temp";
 
-  if((f=fopen(tempfile.toAscii(),"w"))==NULL) {
+  if((f=fopen(tempfile.toUtf8(),"w"))==NULL) {
     SySyslog(LOG_WARNING,QString().
 	     sprintf("unable to save routing data [%s]",strerror(errno)));
     return;
   }
 
   fprintf(f,"[Global]\n");
-  fprintf(f,"NicAddress=%s\n",(const char *)nicAddress().toString().toAscii());
+  fprintf(f,"NicAddress=%s\n",(const char *)nicAddress().toString().toUtf8());
   fprintf(f,"\n");
   for(int i=0;i<SWITCHYARD_MAX_SLOTS;i++) {
     fprintf(f,"[Slot%u]\n",i+1);
     if(i<(int)srcSlots()) {
       fprintf(f,"SourceAddress=%s\n",
-	      (const char *)srcAddress(i).toString().toAscii());
-      fprintf(f,"SourceName=%s\n",(const char *)srcName(i).toAscii());
+	      (const char *)srcAddress(i).toString().toUtf8());
+      fprintf(f,"SourceName=%s\n",(const char *)srcName(i).toUtf8());
       fprintf(f,"SourceEnabled=%d\n",srcEnabled(i));
     }
     if(i<(int)dstSlots()) {
       fprintf(f,"DestinationAddress=%s\n",
-	      (const char *)dstAddress(i).toString().toAscii());
-      fprintf(f,"DestinationName=%s\n",(const char *)dstName(i).toAscii());
+	      (const char *)dstAddress(i).toString().toUtf8());
+      fprintf(f,"DestinationName=%s\n",(const char *)dstName(i).toUtf8());
     }
     fprintf(f,"\n");
   }
   fclose(f);
-  rename(tempfile.toAscii(),SWITCHYARD_ROUTING_FILE);
+  rename(tempfile.toUtf8(),SWITCHYARD_ROUTING_FILE);
 #endif  // WIN32
 }
 
@@ -736,9 +736,9 @@ void SyRouting::LoadInterfaces()
 #endif  // WIN32
   /*
   for(unsigned i=0;i<sy_nic_addresses.size();i++) {
-    printf("%s: %s  %s\n",(const char *)sy_nic_devices[i].toAscii(),
-	   (const char *)sy_nic_addresses[i].toString().toAscii(),
-	   (const char *)sy_nic_netmasks[i].toString().toAscii());
+    printf("%s: %s  %s\n",(const char *)sy_nic_devices[i].toUtf8(),
+	   (const char *)sy_nic_addresses[i].toString().toUtf8(),
+	   (const char *)sy_nic_netmasks[i].toString().toUtf8());
   }
   */
 }

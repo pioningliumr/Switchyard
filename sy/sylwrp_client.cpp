@@ -630,7 +630,7 @@ void SyLwrpClient::outputMeterData()
 void SyLwrpClient::SendCommand(const QString &cmd)
 {
   //  printf("SendCommand(\"%s\")\n",(const char *)cmd.toUtf8());
-  lwrp_socket->write((const char *)(cmd+"\r\n").toAscii());
+  lwrp_socket->write((const char *)(cmd+"\r\n").toUtf8());
 }
 
 

@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include <QtGui/QApplication>  // So we get qApp with Qt<=4.2
+#include <QApplication>  // So we get qApp with Qt<=4.2
 #include <QCoreApplication>
 #include <QTimer>
 
@@ -56,8 +56,7 @@ MainObject::MainObject(QObject *parent)
   //
   // Process Command Line
   //
-  SyCmdSwitch *cmd=new SyCmdSwitch(qApp->argc(),qApp->argv(),"syd",VERSION,
-				   SYD_USAGE);
+  SyCmdSwitch *cmd=new SyCmdSwitch("syd",VERSION,SYD_USAGE);
   for(unsigned i=0;i<cmd->keys();i++) {
     if(cmd->key(i)=="-d") {
       debug=true;

@@ -154,7 +154,7 @@ void SyGpioServer::gpiReadyReadData()
 
   while((n=gpio_gpi_socket->readDatagram(data,1500,&addr))>0) {
     //printf("received %d bytes from %s\n",n,
-    //   (const char *)addr.toString().toAscii());
+    //   (const char *)addr.toString().toUtf8());
     serial=((0xFF&data[4])<<24)+((0xFF&data[5])<<16)+((0xFF&data[6])<<8)+
       (0xFF&data[7]);
     if(gpio_src_addr_serials[addr.toIPv4Address()]!=(serial-1)) {
@@ -187,7 +187,7 @@ void SyGpioServer::gpoReadyReadData()
 
   while((n=gpio_gpo_socket->readDatagram(data,1500,&addr))>0) {
     //printf("received %d bytes from %s\n",n,
-    //   (const char *)addr.toString().toAscii());
+    //   (const char *)addr.toString().toUtf8());
     serial=((0xFF&data[4])<<24)+((0xFF&data[5])<<16)+((0xFF&data[6])<<8)+
       (0xFF&data[7]);
     if(gpio_src_addr_serials[addr.toIPv4Address()]!=(serial-1)) {

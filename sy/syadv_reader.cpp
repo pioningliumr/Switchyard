@@ -131,14 +131,14 @@ QString SyAdvReader::dump() const
   for(unsigned i=0;i<srcQuantity();i++) {
     ret+=QString().sprintf("Source %u:\n",i+1);
     ret+=QString().sprintf("  Node Address: %s\n",(const char *)nodeAddress(i).
-	   toString().toAscii());
+	   toString().toUtf8());
     ret+=QString().sprintf("  Node Name: %s\n",
-			   (const char *)nodeName(i).toAscii());
+			   (const char *)nodeName(i).toUtf8());
     ret+=QString().sprintf("  Slot: %u\n",slot(i));
     ret+=QString().sprintf("  Stream Address: %s\n",
-			   (const char *)streamAddress(i).toString().toAscii());
+			   (const char *)streamAddress(i).toString().toUtf8());
     ret+=QString().sprintf("  SourceName: %s\n",
-			   (const char *)sourceName(i).toAscii());
+			   (const char *)sourceName(i).toUtf8());
     ret+="\n";
   }
 

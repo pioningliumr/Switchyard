@@ -375,9 +375,9 @@ QString SyLwrpServer::SrcLine(int slot)
   return QString().
     sprintf("SRC %u PSNM:\"%s\" FASM:1 RTPE:%d RTPA:\"%s\" INGN:0 SHAB:0 NCHN:2 RTPP:240",
 	    slot+1,
-	    (const char *)ctrl_routing->srcName(slot).toAscii(),
+	    (const char *)ctrl_routing->srcName(slot).toUtf8(),
 	    ctrl_routing->srcEnabled(slot),
-	    (const char *)ctrl_routing->srcAddress(slot).toString().toAscii());
+	    (const char *)ctrl_routing->srcAddress(slot).toString().toUtf8());
 }
 
 
@@ -386,8 +386,8 @@ QString SyLwrpServer::DstLine(int slot)
   return QString().
     sprintf("DST %u NAME:\"%s\" ADDR:\"%s\" NCHN:2 LOAD:0 OUGN:0",
 	    slot+1,
-	    (const char *)ctrl_routing->dstName(slot).toAscii(),
-	    (const char *)ctrl_routing->dstAddress(slot).toString().toAscii());
+	    (const char *)ctrl_routing->dstName(slot).toUtf8(),
+	    (const char *)ctrl_routing->dstAddress(slot).toString().toUtf8());
 }
 
 
@@ -498,7 +498,7 @@ void SyLwrpServer::BroadcastCommand(const QString &cmd)
 void SyLwrpServer::SendCommand(int ch,const QString &cmd)
 {
   ctrl_client_connections[ch]->
-    socket()->write((cmd+"\r\n").toAscii(),cmd.length()+2);
+    socket()->write((cmd+"\r\n").toUtf8(),cmd.length()+2);
 }
 
 

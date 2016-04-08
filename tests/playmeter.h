@@ -9,7 +9,8 @@
 #ifndef PLAYMETER_H
 #define PLAYMETER_H
 
-#include <QtGui/QtGui>
+#include <QTimer>
+#include <QWidget>
 
 /*
  * Default Colors

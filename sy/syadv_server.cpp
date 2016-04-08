@@ -130,8 +130,8 @@ void SyAdvServer::readData()
     /*
     printf("************************************************************\n");
     printf("processing from %s: %s\n",
-	   (const char *)addr.toString().toAscii(),
-	   (const char *)p.dump().toAscii());
+	   (const char *)addr.toString().toUtf8(),
+	   (const char *)p.dump().toUtf8());
     */
     for(unsigned i=0;i<p.tags();i++) {
       if(p.tag(i)->tagName()=="HWID") {
@@ -142,7 +142,7 @@ void SyAdvServer::readData()
       }
       /*
       printf("  examining[%u]: %s\n",i,
-	     (const char *)p.tag(i)->tagName().toAscii());
+	     (const char *)p.tag(i)->tagName().toUtf8());
       */
       if((slot=TagIsSource(p.tag(i)))>=0) {
 	src=GetSource(addr,slot);
@@ -258,7 +258,7 @@ void SyAdvServer::saveSourcesData()
   FILE *f=NULL;
   unsigned num=0;
 
-  if((f=fopen(tempfile.toAscii(),"w"))==NULL) {
+  if((f=fopen(tempfile.toUtf8(),"w"))==NULL) {
     SySyslog(LOG_WARNING,
 	     QString().sprintf("unable to update sources database [%s]",
 			       strerror(errno)));
@@ -272,10 +272,10 @@ void SyAdvServer::saveSourcesData()
 	fprintf(f,"[Source %u]\n",++num);
 	fprintf(f,"Slot=%u\n",src->slot());
 	fprintf(f,"NodeAddress=%s\n",
-		(const char *)src->nodeAddress().toString().toAscii());
+		(const char *)src->nodeAddress().toString().toUtf8());
 	fprintf(f,"NodeName=%s\n",(const char *)src->nodeName().toUtf8());
 	fprintf(f,"StreamAddress=%s\n",
-		(const char *)src->streamAddress().toString().toAscii());
+		(const char *)src->streamAddress().toString().toUtf8());
 	fprintf(f,"SourceName=%s\n",(const char *)src->sourceName().toUtf8());
 	fprintf(f,"\n");
       }
@@ -284,7 +284,7 @@ void SyAdvServer::saveSourcesData()
   }
 
   fclose(f);
-  rename(tempfile.toAscii(),SWITCHYARD_SOURCES_FILE);
+  rename(tempfile.toUtf8(),SWITCHYARD_SOURCES_FILE);
   SySyslog(LOG_DEBUG,
 	   QString().sprintf("saved sources list to \"%s\"",
 			     SWITCHYARD_SOURCES_FILE));

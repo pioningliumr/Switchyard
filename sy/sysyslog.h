@@ -60,7 +60,7 @@
 #include <syslog.h>
 #endif  // WIN32
 
-#include <QtCore/QString>
+#include <QString>
 
 void SyOpenLog(const QString &ident,int option,int facility);
 void SySyslog(int priority,const QString &msg);
